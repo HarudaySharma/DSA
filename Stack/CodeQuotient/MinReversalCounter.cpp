@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ostream>
 #include <stack>
 using namespace std;
 
@@ -26,41 +27,30 @@ void MinReversalCounter::processAndPrintResult() {
 }
 
 int MinReversalCounter::minReversal() {
-    stack<char> *s = new stack<char>;
-    if(expr[0] == ']' && expr[1] == '[' && expr[2] == '\0') {
-            return 2;
-    }
-
-    int i = 0;
-    int count = 0;
-    for(i = 0; expr[i] != '\0'; i++) {
-        if(s->empty()) {
-            s->push(expr[i]);
-            continue;
-        }
-        if(s->top() == expr[i]) {
-            s->push(expr[i]);
+    int open = 0;
+    int close = 0;
+    for(int i = 0; expr[i] != '\0'; i++) {
+        if(expr[i] == '[') {
+            if(close)close--;
+            else open++;
         }
         else {
-            if(s->top() == ']') {
-                count++;
-                s->pop();
-            }
-            else 
-                s->pop();
+            if(open) open--;
+            else close++;
         }
     }
-    if(s->empty()) {
-        if(count == 0)
-            return 0;
-        return  count % 2 == 0 ? count : -1;
-    }
-    i = 0;
-    while(!s->empty()) {
-        i++;
-        s->pop();
-    }
-    delete s;
-    return i % 2 == 0 ? count + i: -1;
+    std::cout << open << std::endl;
+    std::cout << close << std::endl;
+    if(!open)
+        return 0;
+    if(!close) 
+        return open % 2 == 0 ? open / 2 : -1;
+    return abs(open + close) % 2 == 0 ? abs(open + close) : -1;
+    
 }
-
+/*
+ * if([):
+ *  open++;
+ * if(])
+ *
+*/
