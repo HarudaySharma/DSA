@@ -1,8 +1,10 @@
+#include <set>
 bool pairSum(int arr[], int n, int k) {  
-    int i = 0;
-    int j = n - 1;
-    while() {
+    std::set<int>hash;
+    for(int i = 0; i < n; i++) {
+        if(hash.find(k - arr[i]) != hash.end())
+            return true;
+        hash.insert(arr[i]);
     }
-    return 0;
-
+    return false;
 }
