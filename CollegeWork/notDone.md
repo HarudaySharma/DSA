@@ -1,6 +1,6 @@
 - (Number Spiral)[https://cses.fi/problemset/task/1071]
 - (theatre Square)(https://codeforces.com/problemset/problem/1/A)
 - (kill the monster)[https://codeforces.com/problemset/problem/1633/C]
-- [Different Divisors](https://codeforces.com/problemset/problem/1474/B)
+- [Different Divisors](https://codeforces.com/problemset/problem/1473/B)
 - [Nirvana](https://codeforces.com/problemset/problem/1143/B)
 - [Gregor and Cryptography](https://codeforces.com/contest/1549/problem/A)

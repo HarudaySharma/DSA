@@ -154,14 +154,13 @@ int LinkedList::checkPalindrome() {
     if(fast && !fast->next)
         slow = slow->next;
 
+    while(slow){
+        if (slow->data != Stack->back())
+            return 0;
         Stack->pop_back();
-        while(slow){
-            if (slow->data != Stack->back())
-                return 0;
-            Stack->pop_back();
-            slow = slow->next;
-        }
-        return 1;
+        slow = slow->next;
+    }
+    return 1;
 
 }
 

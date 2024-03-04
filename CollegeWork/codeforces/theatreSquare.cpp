@@ -13,7 +13,7 @@ long long findMinSquaresReq(long long n,long long m, long long a) {
         }
         i++;
     }
-    return squaresArea == n * m ? i : i % 2 == 0 || n * m % 2 == 0 ? i : i + 1;
+    return squaresArea == n * m ? i : i % 2 == 0 ? i : i + 1;
 }
 
 int main (int argc, char *argv[]) {
