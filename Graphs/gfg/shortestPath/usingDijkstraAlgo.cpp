@@ -1,9 +1,5 @@
 #include<bits/stdc++.h>
 #include <climits>
-#include <queue>
-#include <set>
-#include <utility>
-#include <vector>
 using namespace std;
 
 class Solution {
@@ -61,7 +57,7 @@ class Solution {
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S) {
         // usingMinHeap(V, adj, S);
-        usingSet(V, adj, S);
+        return usingSet(V, adj, S);
     }
 };
 

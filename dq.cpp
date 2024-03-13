@@ -1,26 +1,22 @@
 #include <bits/stdc++.h>
+#include <map>
+#include <type_traits>
 using namespace std;
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
 
 class Solution {
 public:
-    ListNode* middleNode(ListNode* head) {
-        if(!head)
-            return nullptr;
-        if(!head->next)
-            return head;
-
-        ListNode* slow = head;
-        ListNode* fast = head;
-        do {
-            slow = slow->next;
-            fast = fast->next->next;
-        } while(fast && fast->next);
-        return slow;
+    int pivotInteger(int n) {
+        if(n <= 1)
+           return -1;
+        int sum = n * (n + 1) / 2;
+        int i = 1;
+        int s = 0;
+        while(i < n) {
+            s += i;
+            if(sum - s == s - i)
+                return i;
+            i++;
+        }
+        return -1;
     }
 };
