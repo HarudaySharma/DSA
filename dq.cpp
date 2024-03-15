@@ -1,22 +1,39 @@
 #include <bits/stdc++.h>
-#include <map>
-#include <type_traits>
 using namespace std;
 
 class Solution {
 public:
-    int pivotInteger(int n) {
-        if(n <= 1)
-           return -1;
-        int sum = n * (n + 1) / 2;
-        int i = 1;
-        int s = 0;
-        while(i < n) {
-            s += i;
-            if(sum - s == s - i)
-                return i;
-            i++;
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int product = 1;
+        int zeroCount = 0;
+
+        for(int i = 0; i < nums.size(); i++) {
+            if(nums[i] != 0) {
+                product *= nums[i];
+            }
+            else {
+                zeroCount += 1;
+            }
         }
-        return -1;
+        vector<int> res;
+        if(zeroCount) {
+            if(zeroCount > 1) {
+                res.resize(nums.size(), 0);
+                return res;
+            }
+            for(int i = 0; i < nums.size(); i++) {
+                if(nums[i] == 0) {
+                    res.push_back(product);
+                }
+                else {
+                    res.push_back(0);
+                }
+            }
+            return res;
+        }
+        for(int i = 0; i < nums.size(); i++) {
+            res.push_back(product / nums[i]);
+        }
+        return res;
     }
 };
