@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 #include <climits>
-#include <functional>
 #include <queue>
 #include <utility>
 #include <vector>
