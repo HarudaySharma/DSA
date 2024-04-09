@@ -6,7 +6,6 @@ class Solution {
         vector<vector<int>> dp;
         // as the values at indices can be negative (-1 also)
         vector<vector<bool>> done;
-
         int rec(int r, int c, vector<vector<int>> &arr) {
             //pruning
             if(r < 0 || c < 0)
@@ -29,7 +28,6 @@ class Solution {
             dp[r][c] = ans + arr[r][c];
             return dp[r][c];
         }
-
         int maxSum(vector<vector<int>> arr) {
             dp.resize(arr.size(), vector<int>(arr[0].size(), -1));
             done.resize(arr.size(), vector<bool>(arr[0].size(), false));

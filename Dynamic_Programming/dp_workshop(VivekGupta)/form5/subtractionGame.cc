@@ -2,7 +2,6 @@
 #include <vector>
 using namespace std;
 
-
 vector<int>dp;
 int rec(int x) {
     if(x == 0)

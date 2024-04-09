@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <bits/stdc++.h>
-#include <cmath>
 using namespace std;
 
 class Solution {
@@ -13,7 +12,6 @@ public:
         }
         return maxPair;
     }
-
     int characterReplacement(string s, int k) {
         int maxLen = 0;
         // at max (26 key:value pairs will be stored)
@@ -31,5 +29,24 @@ public:
             maxLen = max(maxLen, right - left + 1);
         }
         return maxLen;
+    }
+    int approach2(string s, int k) {
+        int freq[26]{0};
+        int maxFreq = 0;
+        int maxSubLen = 0;
+        for(int l = 0, r = 0; r < s.size(); r++) {
+            char ch = s[r];
+            freq[ch - 'A'] += 1;
+            maxFreq = max(maxFreq, freq[ch - 'A']);
+            // checking the number of replacements
+            // we have to do in present window
+            while((r - l + 1) - maxFreq > k) {
+                char chLeft = s[l];
+                freq[chLeft - 'A'] -= 1;
+                l++;
+            }
+            maxSubLen = max(r - l + 1, maxSubLen);
+        }
+        return maxSubLen;
     }
 };
