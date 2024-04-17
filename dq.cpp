@@ -1,24 +1,35 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
 class Solution {
-public:
-    int timeRequiredToBuy(vector<int>& tickets, int k) {
-        int time = 0;
-        while(1) {
-            if(tickets[k] == 0)
-                break;
-            for(int i = 0; i < tickets.size(); i++) {
-                int &ticket = tickets[i];
-                if(ticket > 0) {
-                    time++;
-                    ticket--;
-                    if(i == k && ticket == 0)
-                        return time;
+    void printLevelWise(BinaryTreeNode<int> *root) {
+        queue<BinaryTreeNode<int>*> q;
+        q.push(root);
+        while(!q.empty()) {
+            int size = q.size();
+            while(size--) {
+                auto curr = q.front();
+                q.pop();
+                cout << curr->data << ":";
+                cout << "L:";
+                if(curr->left) {
+                    q.push(curr->left);
+                    cout << curr->left->data;
                 }
+                else {
+                    cout << -1;
+                }
+                cout << ",R:";
+                if(curr->right) {
+                    q.push(curr->right);
+                    cout << curr->right->data;
+                }
+                else {
+                    cout << -1;
+                }
+                cout << endl;
             }
-        }
-        return time;
     }
 };
 
