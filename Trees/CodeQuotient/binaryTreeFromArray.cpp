@@ -38,6 +38,8 @@ void BinaryTree:: printInorder() {
 
 // Complete the buildTree() function which is a member function of the class BinaryTree.
 
+/* METHOD - 1
+ * 
 int fetchLeftIndex(int parentIndex) {
     return parentIndex * 2 + 1;
 }
@@ -72,5 +74,31 @@ void BinaryTree:: buildTree(int arr[], int n) {
         }
     }
     
+}
+*/
+
+// METHOD - 2
+void BinaryTree:: buildTree(int arr[], int n) {
+    if(n == 0)
+        return;
+    root = new TreeNode(arr[0]);
+    queue<TreeNode*> q;
+    q.push(root);
+    int i = 0;
+    while (!q.empty()) {
+        auto parent = q.front();
+        q.pop();
+        i++;
+        if(i < n){
+            parent->left = new TreeNode(arr[i]);
+            q.push(parent->left);
+        }
+        i++;
+        if(i < n){
+            parent->right = new TreeNode(arr[i]);
+            q.push(parent->right);
+        }
+    }
+    return;
 }
 

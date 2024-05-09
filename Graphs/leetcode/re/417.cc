@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <climits>
 #include <vector>
 using namespace std;
 
@@ -65,24 +66,3 @@ class Solution {
             return res;
         }
 };
-
-        //{1, 2,2,3,5},
-        //    {3,2, 3, 4 ,4},
-        //    {2,4,5,3,1},
-        //    {6,7,1,4,5},
-        //    {5,1,1,2,4}
-int main (int argc, char *argv[]) {
-
-    vector<vector<int>>heights {
-        {1}
-    };
-    vector<vector<int>> res = Solution::pacificAtlantic(heights);
-    for(auto row : res) {
-        for(auto cell : row) {
-            cout << cell << " ";
-        }
-        cout << endl;
-    }
-    return 0;
-}
-

@@ -101,6 +101,7 @@ class HuffmanCoder {
         }
 };
 
+
 int main (int argc, char *argv[]) {
     string str = "aaabbce";
     HuffmanCoder hfc(str);
