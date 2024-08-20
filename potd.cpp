@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 
 struct TreeNode {
@@ -21,62 +23,56 @@ struct ListNode {
 };
 
 /*
-   There is only one character 'A' on the screen of a notepad. You can perform one
-   of two operations on this notepad for each step:
+   You have a long flowerbed in which some of the plots are planted, and some are
+   not. However, flowers cannot be planted in adjacent plots.
 
-   Copy All: You can copy all the characters present on the screen (a partial
-   copy is not allowed). Paste: You can paste the characters which are copied last
-   time.
-
-   Given an integer n, return the minimum number of operations to get the character
-   'A' exactly n times on the screen.
+   Given an integer array flowerbed containing 0's and 1's, where 0 means empty and
+   1 means not empty, and an integer n, return true if n new flowers can be planted
+   in the flowerbed without violating the no-adjacent-flowers rule and false
+   otherwise.
 
 
 
     Example 1:
 
-        Input: n = 3
-        Output: 3
-        Explanation: Initially, we have one character 'A'.
-        In step 1, we use Copy All operation.
-        In step 2, we use Paste operation to get 'AA'.
-        In step 3, we use Paste operation to get 'AAA'.
-
+        Input: flowerbed = [1,0,0,0,1], n = 1
+        Output: true
+        
     Example 2:
 
-        Input: n = 1
-        Output: 0
-
+        Input: flowerbed = [1,0,0,0,1], n = 2
+        Output: false
 */
 
 class Solution {
-    public:
-        int minSteps(int n) {
-            if(n == 1)
-                return 0;
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> zeroPos;
+        vector<int> res(nums.size(), 0);
+        int prd = 1;
 
-            // paste curr seq;
-            // paste previous seq.
-            // dp
-            vector<int> dp(1001, -1);
-
-            auto rec = [&](int curr, int paste, auto &&rec) -> int {
-                if(curr > n)
-                    return 1e9;
-                if(curr == n)
-                    return 0;
-                if(dp[curr] != -1)
-                    return dp[curr];
-
-                // paste
-                int x = rec(curr + paste, paste, rec) + 1;
-                // copy & paste
-                int y = rec(curr * 2, curr, rec) + 2;
-
-                return dp[curr] = min(x, y);
-            };
-
-            return rec(1, 1, rec) + 1;
+        for(int i = 0; i < nums.size(); i++) {
+            int num = nums[i];
+            if(num == 0) {
+                zeroPos.push_back(i);
+                continue;
+            }
+            prd *= num;
         }
+
+        if(zeroPos.size() > 1)
+            return res;
+
+        if(zeroPos.size()) {
+            res[zeroPos.front()] = prd;
+            return res;
+        }
+
+        for(int i = 0; i < nums.size(); i++) {
+            res[i] = prd / nums[i];
+        }
+
+        return res;
+    }
 };
 
