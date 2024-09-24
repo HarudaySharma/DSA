@@ -1,6 +1,10 @@
 #include <algorithm>
 #include <bits/stdc++.h>
-#include <unordered_set>
+#include <climits>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -23,56 +27,59 @@ struct ListNode {
 };
 
 /*
-   You have a long flowerbed in which some of the plots are planted, and some are
-   not. However, flowers cannot be planted in adjacent plots.
-
-   Given an integer array flowerbed containing 0's and 1's, where 0 means empty and
-   1 means not empty, and an integer n, return true if n new flowers can be planted
-   in the flowerbed without violating the no-adjacent-flowers rule and false
-   otherwise.
+   Given a list of 24-hour clock time points in "HH:MM" format, return the minimum
+   minutes difference between any two time-points in the list.
 
 
 
-    Example 1:
+   Example 1:
 
-        Input: flowerbed = [1,0,0,0,1], n = 1
-        Output: true
-        
-    Example 2:
+Input: timePoints = ["23:59","00:00"]
+Output: 1
 
-        Input: flowerbed = [1,0,0,0,1], n = 2
-        Output: false
-*/
+Example 2:
+
+Input: timePoints = ["00:00","23:59","00:00"]
+Output: 0
+
+
+
+Constraints:
+
+2 <= timePoints.length <= 2 * 104
+timePoints[i] is in the format "HH:MM" */
+
+class comp {
+    public:
+        bool operator()(const string t1, const string t2) const {
+            int h1 = stoi(t1.substr(0, 2));
+            int h2 = stoi(t2.substr(0, 2));
+            int m1 = stoi(t1.substr(3, 2));
+            int m2 = stoi(t2.substr(3, 2));
+
+            return h1 > h2 || m1 > m2;
+        }
+};
 
 class Solution {
 public:
-    vector<int> productExceptSelf(vector<int>& nums) {
-        vector<int> zeroPos;
-        vector<int> res(nums.size(), 0);
-        int prd = 1;
+    int findKthNumber(int n, int k) {
+        
+        long long currNum = 1;
+        int count = 1;
+        while(count < k) {
+            count += 1;
 
-        for(int i = 0; i < nums.size(); i++) {
-            int num = nums[i];
-            if(num == 0) {
-                zeroPos.push_back(i);
-                continue;
+            if(currNum * 10 <= n)
+                currNum *= 10;
+            else {
+                while(currNum == n || currNum % 10 == 9)
+                    currNum /= 10;
+                currNum += 1;
             }
-            prd *= num;
         }
 
-        if(zeroPos.size() > 1)
-            return res;
-
-        if(zeroPos.size()) {
-            res[zeroPos.front()] = prd;
-            return res;
-        }
-
-        for(int i = 0; i < nums.size(); i++) {
-            res[i] = prd / nums[i];
-        }
-
-        return res;
+        return currNum;
     }
 };
 

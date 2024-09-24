@@ -1,20 +1,36 @@
 package main
 
-func countSeniors(details []string) int {
-    seniorCount := 0
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
-    for _, detail := range details {
-        var firstAgeChar byte = detail[len(detail) - 4]
-        var secondAgeChar byte = detail[len(detail) - 3]
 
-        if firstAgeChar == '6' && secondAgeChar > '0' {
-            seniorCount += 1
+func getNumber(s string) string {
+    var sb strings.Builder
+
+    for _, ch := range s {
+        sb.WriteString(fmt.Sprintf("%d", ch - 'a' + 1))
+    }
+    
+    return sb.String()
+}
+
+func getLucky(s string, k int) int {
+    res := "";
+    res = getNumber(s);
+
+    for k != 0 {
+        num := 0;
+        for _, dig := range res {
+            num += int(dig - '0')
         }
-        if firstAgeChar > '6' {
-            seniorCount += 1
-        }
+        res = strconv.Itoa(num)
+        k--
     }
 
-    return seniorCount
+    n, _ := strconv.Atoi(res)
+    return n
 }
 

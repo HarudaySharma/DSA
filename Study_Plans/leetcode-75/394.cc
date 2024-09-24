@@ -1,10 +1,8 @@
 #include <algorithm>
 #include <bits/stdc++.h>
 #include <cstdlib>
-#include <sstream>
 #include <stack>
 #include <string>
-#include <unordered_set>
 using namespace std;
 //
 // Example 1:

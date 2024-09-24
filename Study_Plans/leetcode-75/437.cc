@@ -13,35 +13,25 @@ struct TreeNode {
 class Solution {
     public:
         int pathSum(TreeNode* root, int targetSum) {
-            set<vector<TreeNode*>> taken;
-            auto rec = [&](TreeNode *root, int target, vector<TreeNode*> path, auto &&rec) -> int {
-                if(!root)
+            if(!root)
+                return 0;
+
+            auto rec = [&](TreeNode *root, long target, auto &&rec) -> int {
+                if(!root) {
                     return 0;
-
-                int sum = 0;
-                // the next node will be start of the path
-                sum += rec(root->left, targetSum, {}, rec);
-                sum += rec(root->right, targetSum, {}, rec);
-
-                path.push_back(root);
-                target -= root->val;
-                if(target < 0)
-                    return sum;
-                if(target == 0) {
-                    if(!taken.count(path)) {
-                        taken.insert(path);
-                        sum += 1;
-                    }
                 }
-                else {
-                    // consider curr node in the path
-                    sum += rec(root->left, target, path, rec);
-                    sum += rec(root->right, target, path, rec);
-                }
+
+                long sum = target == root->val ? 1 : 0;
+
+                // consider curr node in the path
+                sum += rec(root->left, target - root->val, rec);
+                sum += rec(root->right, target - root->val, rec);
 
                 return sum;
             };
 
-            return rec(root, targetSum, {}, rec);
+            return rec(root, targetSum, rec)
+                + pathSum(root->left, targetSum)
+                + pathSum(root->right, targetSum);
         }
 };

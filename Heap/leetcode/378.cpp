@@ -45,3 +45,8 @@ class Solution {
             return k <= heap.size() ? heap[k - 1] : -1;
         }
 };
+int main (int argc, char *argv[]) {
+    cout << "hello from main";
+   
+    return 0;
+}
