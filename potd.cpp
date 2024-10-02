@@ -1,10 +1,9 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 #include <climits>
 #include <cstdio>
 #include <cstdlib>
-#include <sstream>
-#include <string>
+#include <queue>
+#include <unordered_set>
 #include <vector>
 using namespace std;
 
@@ -26,60 +25,40 @@ struct ListNode {
     ListNode(long x, ListNode *next) : val(x), next(next) {}
 };
 
-/*
-   Given a list of 24-hour clock time points in "HH:MM" format, return the minimum
-   minutes difference between any two time-points in the list.
-
-
-
-   Example 1:
-
-Input: timePoints = ["23:59","00:00"]
-Output: 1
-
-Example 2:
-
-Input: timePoints = ["00:00","23:59","00:00"]
-Output: 0
-
-
-
-Constraints:
-
-2 <= timePoints.length <= 2 * 104
-timePoints[i] is in the format "HH:MM" */
-
-class comp {
-    public:
-        bool operator()(const string t1, const string t2) const {
-            int h1 = stoi(t1.substr(0, 2));
-            int h2 = stoi(t2.substr(0, 2));
-            int m1 = stoi(t1.substr(3, 2));
-            int m2 = stoi(t2.substr(3, 2));
-
-            return h1 > h2 || m1 > m2;
-        }
-};
-
 class Solution {
 public:
-    int findKthNumber(int n, int k) {
-        
-        long long currNum = 1;
-        int count = 1;
-        while(count < k) {
-            count += 1;
-
-            if(currNum * 10 <= n)
-                currNum *= 10;
-            else {
-                while(currNum == n || currNum % 10 == 9)
-                    currNum /= 10;
-                currNum += 1;
+    vector<int> arrayRankTransform(vector<int>& arr) {
+        /* Approach
+         * how to get the rank of max number 
+         * => it will be the count of distinct eles in the arr.
+         * how to get the rank of other eles?
+         * create a map b/w element and its rank
+         *  how ? Using HashMap & Priority Queue?
+         *   why? PQ for mapping the rank with corresponding eles.
+         *        and HashMap to store (ele, rank)
+         *   the size of pq will be the rank of maxEle.
+         */
+        map<int, int> mp;
+        priority_queue<int> pq;
+        for(int el : arr) {
+            if(!mp.count(el)) {
+                pq.push(el);
+                mp[el] = 1;
             }
         }
 
-        return currNum;
+        int rank = pq.size();
+        while(!pq.empty()) {
+            mp[pq.top()] = rank--;
+            pq.pop();
+        }
+
+        vector<int> rankArr;
+        for(auto el : arr) {
+            rankArr.push_back(mp[el]);
+        }
+
+        return rankArr;
     }
 };
 

@@ -6,6 +6,26 @@ using namespace std;
 // building min heap
 template <typename T>
 class Heap {
+    public:
+        void insert(T ele) {
+            heap.push_back(ele);
+            // up heap (for min heap)
+            upHeap();
+        }
+
+        T remove() {
+            if(heap.empty()) {
+                return -1;
+            }
+            T f = heap.front();
+            if(!heap.empty()) {
+                T l = heap.back();
+                heap.front() = l;
+                downHeap();
+            }
+            cout << f << endl;
+            return f;
+        }
     private:
         vector<T>heap;
         void swap(T &a, T &b) {
@@ -26,8 +46,10 @@ class Heap {
 
         // root => 0 (index)
         int getParent(int i) {
-            int p = i % 2 == 0 ? (i - 2) / 2 : (i - 1) / 2 ;
+            int p = i % 2 == 0 ? (i - 2) / 2 : (i - 1) / 2 ;// formula dervied after hit and trials
             return p < 0 ? -1 : p;
+            // NOTE:
+            // p => (i - 1) / 2; always (for root it will be 0)
         }
 
         void upHeap() {
@@ -73,26 +95,6 @@ class Heap {
             }
         }
 
-    public:
-        void insert(T ele) {
-            heap.push_back(ele);
-            // up heap (for min heap)
-            upHeap();
-        }
-
-        T remove() {
-            if(heap.empty()) {
-                return -1;
-            }
-            T f = heap.front();
-            if(!heap.empty()) {
-                T l = heap.back();
-                heap.front() = l;
-                downHeap();
-            }
-            cout << f << endl;
-            return f;
-        }
 };
 
 int main (int argc, char *argv[]) {
