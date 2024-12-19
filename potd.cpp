@@ -2,9 +2,8 @@
 #include <climits>
 #include <cstdio>
 #include <cstdlib>
-#include <queue>
-#include <unordered_set>
-#include <vector>
+#include <unistd.h>
+#include <utility>
 using namespace std;
 
 struct TreeNode {
@@ -14,7 +13,7 @@ struct TreeNode {
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
     TreeNode(long x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(long x, TreeNode *left, TreeNode *right)
-        : val(x), left(left), right(right) {}
+    : val(x), left(left), right(right) {}
 };
 
 struct ListNode {
@@ -27,38 +26,24 @@ struct ListNode {
 
 class Solution {
 public:
-    vector<int> arrayRankTransform(vector<int>& arr) {
-        /* Approach
-         * how to get the rank of max number 
-         * => it will be the count of distinct eles in the arr.
-         * how to get the rank of other eles?
-         * create a map b/w element and its rank
-         *  how ? Using HashMap & Priority Queue?
-         *   why? PQ for mapping the rank with corresponding eles.
-         *        and HashMap to store (ele, rank)
-         *   the size of pq will be the rank of maxEle.
-         */
-        map<int, int> mp;
-        priority_queue<int> pq;
-        for(int el : arr) {
-            if(!mp.count(el)) {
-                pq.push(el);
-                mp[el] = 1;
+    int minAddToMakeValid(string s) {
+        int openCount = 0;
+        int add = 0;
+
+        for(auto ch : s) {
+            if(ch == '(')
+                openCount += 1;
+            else {
+                if(!openCount) {
+                    add += 1;
+                }
+                else {
+                    openCount -= 1;
+                }
             }
         }
 
-        int rank = pq.size();
-        while(!pq.empty()) {
-            mp[pq.top()] = rank--;
-            pq.pop();
-        }
-
-        vector<int> rankArr;
-        for(auto el : arr) {
-            rankArr.push_back(mp[el]);
-        }
-
-        return rankArr;
+        return add + openCount;
     }
 };
 
