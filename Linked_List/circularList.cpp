@@ -1,4 +1,4 @@
-// #include "iostream"
+#include "bit/stdc++.h"
 
 using namespace std;
 
@@ -33,7 +33,7 @@ public:
         tail->next = head;
         head->prev = tail;
         return head;
-    } 
+    }
     Node* insertBeg(Node*, int data);
     int isCircularCheck(Node*);
     void deleteBeg();
@@ -62,7 +62,7 @@ CircularList* CircularList::splitLinkedList() {
     } while(fast != head && fast->next != head);
 
     prevSlow->next = head;
-    
+
     if(fast->next == head) {
         fast->next = slow;
         ls2->head = slow;
@@ -92,10 +92,10 @@ void CircularList::insertSorted(int data) {
         return;
     }
     Node* prev = head;
-    while(prev->next->next != head && prev->next->data < data) 
+    while(prev->next->next != head && prev->next->data < data)
         prev = prev->next;
-    
-    // two cases => 
+
+    // two cases =>
     //              1. tail->data >= newData
     //              2. tail->data < newData
     if(prev->next->data >= data) {
@@ -105,7 +105,7 @@ void CircularList::insertSorted(int data) {
     }
     prev->next->next = newNode;
     newNode->next = head;
-    return; 
+    return;
 }
 
 int CircularList::countNodes() {
@@ -113,17 +113,17 @@ int CircularList::countNodes() {
     if(head->next == head) return 1;
     int count = 0;
     Node* fast = head;
-    do { 
+    do {
         count++;
         fast = fast->next->next;
-        
+
     } while(fast != head && fast->next != head);
     return fast == head ? count * 2 : count * 2 + 1;
-        
+
 
 }
 void CircularList::deleteBeg() {
-    if(!head) 
+    if(!head)
         return;
     if(!head->next) {
         delete head;
@@ -139,7 +139,7 @@ void CircularList::deleteBeg() {
 }
 
 void CircularList::deleteEnd() {
-    if(!head) 
+    if(!head)
         return;
     if(!head->next) {
         delete head;
@@ -162,7 +162,7 @@ Node* CircularList::insertBeg(Node* head, int data) {
         head = node;
         head->next = head;
         return head;
-    } 
+    }
 
     Node* tail = head;
     while(tail->next != head)
@@ -192,12 +192,12 @@ int CircularList::isCircularCheck(Node* head) {
             return 0;
         }
     }while(prevFast != head && fast != head);
-    
+
     return 1;
 }
 
 int main (int argc, char *argv[]) {
-    
+
     return 0;
 }
 
