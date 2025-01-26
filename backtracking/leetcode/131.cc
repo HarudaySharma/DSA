@@ -3,16 +3,9 @@
 using namespace std;
 
 class Solution {
-private:
-    bool isPalindrome(string s, int i, int j) {
-        while(i < j) {
-            if(s[i++] != s[j--])
-                return false;
-        }
-        return true;
-    }
-
 public:
+    map<pair<int, int>, bool> mp;
+
     vector<vector<string>> partition(string s) {
         vector<vector<string>> ans;
 
@@ -24,9 +17,12 @@ public:
 
             for(int j = i; j < s.length(); j++) {
                 if(isPalindrome(s, i, j)) {
+                    mp[{i, j}] = true;
                     res.push_back(s.substr(i, j - i + 1));
                     rec(j + 1, res, rec);
                     res.pop_back();
+                } else {
+                    mp[{i, j}] = false;
                 }
             }
             return;
@@ -37,6 +33,21 @@ public:
 
         return ans;
     }
+
+private:
+    bool isPalindrome(string s, int i, int j) {
+        while(i < j) {
+            if(mp.count({i, j})) {
+                return mp[{i, j}];
+            }
+            if(s[i++] != s[j--]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 };
 
 

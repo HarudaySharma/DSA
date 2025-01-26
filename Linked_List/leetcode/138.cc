@@ -20,8 +20,10 @@ class Solution {
         Node *copyRandomList(Node *head) {
             unordered_map<Node *, Node *> copy;
             Node *curr = head;
+
             Node *newHead = nullptr;
             Node *newTail = nullptr;
+
             while (curr) {
                 // check copy of current in hashmap
                 Node *newCurr = nullptr;
@@ -31,6 +33,7 @@ class Solution {
                     newCurr = new Node(curr->val);
                     copy[curr] = newCurr;
                 }
+
                 // update the head and tail of new list
                 if(!newHead) {
                     newHead = newCurr;
@@ -40,6 +43,7 @@ class Solution {
                     newTail->next = newCurr;
                     newTail = newCurr;
                 }
+
                 // check for the random;
                 Node *newRandom = nullptr;
                 if (copy.count(curr->random)) {
@@ -48,9 +52,11 @@ class Solution {
                     newRandom = new Node(curr->random->val);
                     copy[curr->random] = newRandom;
                 }
+
                 newCurr->random = newRandom;
                 curr = curr->next;
             }
+
             return newHead;
         }
 };
